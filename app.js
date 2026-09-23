@@ -1,28 +1,28 @@
 require('dotenv').config();
-
+const cors = require('cors');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productosRouter = require('./routes/productos');
 var clientesRouter = require('./routes/clientes');
 var proveedoresRouter = require('./routes/proveedores');
-// 1. IMPORTAR LAS NUEVAS RUTAS
 var ventasRouter = require('./routes/ventas');
 var detalleVentaRouter = require('./routes/detalle_venta');
 
 var app = express();
 
+// Middleware de CORS
+app.use(cors());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,7 +34,6 @@ app.use('/users', usersRouter);
 app.use('/productos', productosRouter);
 app.use('/clientes', clientesRouter);
 app.use('/proveedores', proveedoresRouter);
-// 2. ENLAZAR LAS RUTAS
 app.use('/ventas', ventasRouter);
 app.use('/detalle_venta', detalleVentaRouter);
 
